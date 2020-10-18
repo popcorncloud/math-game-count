@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div style="width: 400px; float:left; height:100px; margin:10px">
+            <h1>Matematika</h1>
+            <div>
+                <label id="problem1">5+3 = </label>
+                <input id="answer">
+                <button onclick="check()">Check!</button>
+            </div>
+        </div>
+        <div style="width: 300px; float:left; height:100px; margin:10px">
+            <span>
+                <h1 id="message">-</h1>
+                <p id="score">SCORE:</p>
+            </span>
+        </div>
+        <br><br><br><br><br><br><br><br>
+        <hr>
+        <center>
+            <img id="baby horse" hidden src=https://www.toyeto.sk/pub/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/4/1/41a9gikwr3l._sl1000_.jpg>
+            <img id="horse" hidden src="http://img.horseworldonline.net/gallery/5/2/1/1/1125517/5a5a0f0d0279f.png">
+            <img id="pegasus" hidden src="https://image.shutterstock.com/image-illustration/pegasus-closeup-isolated-on-white-260nw-701364220.jpg">
+            <img id="unicorn" hidden src="https://i5.walmartimages.com/asr/495e1f08-c73f-4e55-ba7d-1ce9a3bcbe6a_1.495af9807a8613ee6b3651dce94bc65d.jpeg?odnHeight=450&odnWidth=450&odnBg=ffffff">
+            <img id="alicorn" hidden src=https://www.facetdev.com/blog/uploads/rainbow-unicorn.png>
+        </center>
+    </body>
+
+    <script>
+
+        var num1 = 0;
+        var num2 = 0;
+
+        var score = 0;
+
+        alert("Hi!!");
+
+        function generate(){
+            num1 = Math.floor(Math.random()*400);
+            num2 = Math.floor(Math.random()*(400-num1));
+
+            document.getElementById("problem1").innerHTML = num1 + " + " + num2 + " = ";
+            document.getElementById("answer").value = "";
+
+            document.getElementById("score").innerHTML = "SCORE: " + score;
+        }
+
+        generate();
+
+        function check(){
+            if(document.getElementById("answer").value == num1+num2){
+                document.getElementById("message").innerHTML = "GOOD JOB!";
+                score++;
+                generate();
+            }else{
+                document.getElementById("message").innerHTML = "WRONG!";
+                if(score > 0){
+                    score--;
+                }
+                generate();
+            }
+            if(score === 0){
+                alert("you lose");
+                location.reload();
+            }
+            if(score >= 1 && score < 5){
+                document.getElementById("baby horse").removeAttribute("hidden");
+            }else{
+                document.getElementById("baby horse").setAttribute("hidden", "hidden");
+            }
+
+            if(score >= 5 && score < 10){
+                document.getElementById("horse").removeAttribute("hidden");
+            }else{
+                document.getElementById("horse").setAttribute("hidden", "hidden");
+            }
+
+            if(score >= 10 && score < 15){
+                document.getElementById("pegasus").removeAttribute("hidden");
+            }else{
+                document.getElementById("pegasus").setAttribute("hidden", "hidden");
+            }
+
+            if(score >= 15 && score < 20){
+                document.getElementById("unicorn").removeAttribute("hidden");
+            }else{
+                document.getElementById("unicorn").setAttribute("hidden", "hidden");
+            }
+
+            if(score >= 20){
+                document.getElementById("alicorn").removeAttribute("hidden");
+                alert("You Win!!");
+            }else{
+                document.getElementById("alicorn").setAttribute("hidden", "hidden");
+            }
+        
+        }
+
+        document.onkeypress = function (e) {
+             e = e || window.event;
+            // use e.keyCode
+            if(e.keyCode == 13){
+                check();
+            }
+        };
+            
+
+    </script>
+</html>
