@@ -1,3 +1,3 @@
 ## Pegasus
 
-{% include_relative MAThra.html %}
+[Mathra] (/MAThra.html)
