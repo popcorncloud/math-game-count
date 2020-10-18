@@ -1,3 +1,4 @@
 ## Pegasus
 
-[Mathra] (/MAThra.html)
+[Mathra](/MAThra.html)
+
