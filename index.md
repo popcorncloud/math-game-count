@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Nelicorn
-description: This is my first blog
 ---
 
 # Blog
