@@ -15,7 +15,12 @@
                 dataType: "json"
             }).done(function(result){
                 console.log(result);
+
+                var value = Object.keys(result);
+                document.getElementById("language").innerHTML = value[0];
+
             });
+
         </script>
 
         <h1>This is a Heading</h1>
