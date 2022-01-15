@@ -1,0 +1,14 @@
+{
+    "german":{
+        "Lekcia 1":{
+            "ahoj":"hallo",
+            "macka":"katze",
+            "ja":"ich"  
+        },
+        "Lekcia 2":{
+            "ano":"ja",
+            "nie":"nein",
+            "dakujem":"danke"  
+        }
+    }
+}

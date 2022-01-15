@@ -4,6 +4,19 @@
         <title>Page Title</title>
     </head>
     <body>
+        <script>
+            function logResults(json) {
+                console.log(json)
+            }
+
+            $.ajax({
+                url: "https://www.nelicorn.com/games/learn_words/german_dictionary.json",
+                dataType: "json"
+            }).done(function(result){
+                console.log(result);
+            });
+        </script>
+
         <h1>This is a Heading</h1>
         <p>This is a paragraph.</p>
     </body>
