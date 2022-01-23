@@ -13,16 +13,23 @@
             }).done(function(result){
                 console.log(result);
 
-                var value = Object.keys(result);
-                console.log(result[value]);
-                document.getElementById("language").innerHTML = value[0];
-                document.getElementById("language").innerHTML = value[0];
+                var language="";
+                var lessons="";
 
-                value.forEach((key, index) => {
+                var LanguageList = Object.keys(result);
+                LanguageList.forEach((key, index) => {
+                    language += `<div> ${key} </div>`;
                     console.log(`${key}: ${result[key]}`);
+
+                    var LessonList = Object.keys(result[key]);
+                    LessonList.forEach((lesson, index) => {
+                        lessons += `<div> ${lesson} </div>`;
+                        console.log(`${lesson}`);
+                    });
+                    
                 });
-
-
+                document.getElementById("language").innerHTML = language;
+                document.getElementById("lessons").innerHTML = lessons;
             });
 
         </script>
@@ -30,8 +37,8 @@
         <h1>This is a Heading</h1>
         <p>This is a paragraph.</p>
 
-        <div id="language">language</div>
-        <div id="lessons">lessons</div>
+        <div id="language" style="background-color: mediumvioletred;">language</div>
+        <div id="lessons" style="background-color:mediumslateblue;" >lessons</div>
        
     </body>
 </html>
