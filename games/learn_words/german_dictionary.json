@@ -1,14 +1,26 @@
 {
     "german":{
-        "Lekcia 1":{
+        "Lektion 1":{
             "ahoj":"hallo",
             "macka":"katze",
             "ja":"ich"  
         },
-        "Lekcia 2":{
+        "Lektion 2":{
             "ano":"ja",
             "nie":"nein",
             "dakujem":"danke"  
+        }
+    },
+    "english":{
+        "Lesson 1":{
+            "ahoj":"hello",
+            "macka":"cat",
+            "ja":"I"  
+        },
+        "Lesson 2":{
+            "ano":"yes",
+            "nie":"no",
+            "dakujem":"thank you"  
         }
     }
 }

@@ -14,7 +14,14 @@
                 console.log(result);
 
                 var value = Object.keys(result);
+                console.log(result[value]);
                 document.getElementById("language").innerHTML = value[0];
+                document.getElementById("language").innerHTML = value[0];
+
+                value.forEach((key, index) => {
+                    console.log(`${key}: ${result[key]}`);
+                });
+
 
             });
 
@@ -24,5 +31,7 @@
         <p>This is a paragraph.</p>
 
         <div id="language">language</div>
+        <div id="lessons">lessons</div>
+       
     </body>
 </html>
