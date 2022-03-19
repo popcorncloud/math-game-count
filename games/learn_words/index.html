@@ -12,6 +12,7 @@
             var WordPosition = 0;
             var from_to = 'to_sk';
             var Score = 0;
+            var result_input = null;
 
             function ReadDictionary(){
                 $.ajax({
@@ -150,7 +151,7 @@
                                     <input type="text" id="result" name="result">
                                 </div>
                                 <div>
-                                        <button onclick="ShowResult()"> Skontroluj </button>
+                                        <button id="ShowResult" onclick="ShowResult()"> Skontroluj </button>
                                 </div>
                              </div>`;           
 
@@ -176,11 +177,12 @@
                 var test =  ShowWord(TestWords[0][0],TestWords[0][1],TestWords[0][2],from_to);
 
                 document.getElementById("test").innerHTML =test;
-
+                SetEnterEvent();
             }
 
             function ShowResult(){
                 var ResultWord = "";
+                var Answer = "";
 
                 if(from_to == 'to_sk'){
                     ResultWord = TestWords[WordPosition][0];
@@ -196,12 +198,15 @@
                 if (document.getElementById("result").value == ResultWord){
                     Score++;
                     console.log('Correct');
+                    Answer = `Správne! Dobrá práca!`;
                 }
                 else{
                     console.log('wrong');
+                    Answer = `Nesprávne! Správna odpoved bola: ${ResultWord}`;
                 }
                 console.log(`Correct: ${Score} / Wrong: ${WordPosition + 1 - Score}`);
-                document.getElementById("score").innerHTML = `Correct: ${Score} / Wrong: ${WordPosition + 1 - Score}`;
+                document.getElementById("score").innerHTML = `Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}`;
+                document.getElementById("answwer").innerHTML = Answer;
                 ShowNext();
             }
 
@@ -226,6 +231,7 @@
                     WordPosition++;  
                     console.log( `WordPosition2: ${WordPosition}`);
                     document.getElementById("test").innerHTML = ShowWord(TestWords[WordPosition][0],TestWords[WordPosition][1],TestWords[WordPosition][2],from_to);
+                    SetEnterEvent();
                 }   
                 else{
                     console.log('TestEnd');
@@ -243,6 +249,22 @@
                 location.reload();
             }
 
+            function SetEnterEvent(){
+                // Get the input field
+                result_input = document.getElementById("result");
+
+                // Execute a function when the user releases a key on the keyboard
+                result_input.addEventListener("keyup", function(event) {
+                    // Number 13 is the "Enter" key on the keyboard
+                    if (event.keyCode === 13) {
+                        // Cancel the default action, if needed
+                        event.preventDefault();
+                        // Trigger the button element with a click
+                        document.getElementById("ShowResult").click();
+                    }
+                });
+            }
+
         </script>
        
 
@@ -258,6 +280,6 @@
         <div id="words" style="background-color:rgb(67, 32, 102);" ></div>
         <div id="test" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
         <div id="score" style="background-color:turquoise"></div>
-
+        <div id="answwer" style="background-color:rgb(64, 115, 224)"></div>
     </body>
 </html>

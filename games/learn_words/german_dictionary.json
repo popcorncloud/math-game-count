@@ -1,5 +1,5 @@
 {
-    "german":{
+    "Deutsch":{
         "Lektion 1":{
             "ahoj":"hallo",
             "macka":"katze",
@@ -16,7 +16,7 @@
             "Slovensko":"der Slowakei"
         }
     },
-    "english":{
+    "English":{
         "Lesson 1":{
             "ahoj":"hello",
             "macka":"cat",
