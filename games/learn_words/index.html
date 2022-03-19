@@ -2,43 +2,262 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <title>Page Title</title>
-    </head>
-    <body>
+        <title>Vyskusaj sa v slovickach</title>
         <script>
+            
+            var AllDictionaries ="";
+            var language = "";
+            var words = "";
+            var TestWords = [];
+            var WordPosition = 0;
+            var from_to = 'to_sk';
+            var Score = 0;
 
-            $.ajax({
-                url: "https://www.nelicorn.com/games/learn_words/german_dictionary.json",
-                dataType: "json"
-            }).done(function(result){
-                console.log(result);
+            function ReadDictionary(){
+                $.ajax({
+                    url: "https://www.nelicorn.com/games/learn_words/german_dictionary.json",
+                    dataType: "json"
+                }).done(function(result){
 
-                var language="";
-                var lessons="";
+                    AllDictionaries = result;
+                    console.log(AllDictionaries);
 
-                var LanguageList = Object.keys(result);
-                LanguageList.forEach((key, index) => {
-                    language += `<div> ${key} </div>`;
-                    console.log(`${key}: ${result[key]}`);
-
-                    var LessonList = Object.keys(result[key]);
-                    LessonList.forEach((lesson, index) => {
-                        lessons += `<div> ${lesson} </div>`;
-                        console.log(`${lesson}`);
+                    var LanguageList = Object.keys(AllDictionaries);
+                    console.log(`LanguageList: ${LanguageList}`);
+                    LanguageList.forEach((key, index) => {
+                        console.log(`key: ${key}`);
+                        console.log(`index: ${index}`);
+                        language +=     `<div>
+                                                <input type="checkbox" id="language${index}" name="language${index}" value="${key}" onchange="LanguageSelected(this)">
+                                                <label for="language${index}">${key}</label><br>                                        
+                                        </div>`;
                     });
-                    
+                    document.getElementById("language").innerHTML = language;
                 });
-                document.getElementById("language").innerHTML = language;
+            }
+            
+            function LanguageSelected(element){
+                //console.log(`language checked/unchecked`);
+                //console.log(AllDictionaries);
+
+                var lessons ="";
+                var LanguageList = Object.keys(AllDictionaries);
+                //console.log(`LanguageList: ${LanguageList}`);
+
+                LanguageList.forEach((key, index) => {
+
+                    if(document.getElementById("language"+index).checked == true){
+
+                        var LessonList = Object.keys(AllDictionaries[key]);
+                        LessonList.forEach((lesson, LessonIndex) => {
+                            //console.log(`key: ${lesson}`);
+                            //console.log(`index: ${LessonIndex}`);
+                            lessons +=      `<div>
+                                                <input type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
+                                                <label for="${key}${LessonIndex}">${lesson}</label><br>
+                                            </div>`;
+                        });  
+                    }                  
+                }); 
                 document.getElementById("lessons").innerHTML = lessons;
-            });
+                document.getElementById("controls").innerHTML ="";
+            }
+
+            function LessonSelected(element){
+                console.log(`lesson checked/unchecked`);
+                var LessonChecked = false;
+                var lessons ="";
+                var LanguageList = Object.keys(AllDictionaries);
+                //console.log(`LanguageList: ${LanguageList}`);
+                TestWords = [];
+                LanguageList.forEach((key, index) => {
+
+                    if(document.getElementById("language"+index).checked == true){
+
+                        var LessonList = Object.keys(AllDictionaries[key]);
+                        LessonList.forEach((lesson, LessonIndex) => {
+
+                            if(document.getElementById(`${key}${LessonIndex}`).checked == true){
+                                console.log(lesson);
+                                LessonChecked = true;
+
+                                var TestWord = [];
+                                var WordList = Object.keys(AllDictionaries[key][lesson]);
+                                WordList.forEach((word, WordIndex) => {
+                                    console.log(`${word}:${AllDictionaries[key][lesson][word]}`);
+                                    TestWord[0] = word;
+                                    TestWord[1] = AllDictionaries[key][lesson][word];
+                                    TestWord[2] = key;
+                                    TestWords.push([...TestWord]);
+                                });
+                            }
+                        });  
+                    }                  
+                }); 
+
+                if(LessonChecked == true){
+                    var controls = "";
+
+                    controls +=     `<div>
+                                        <input type="radio" id="to_sk" name="directions" value="to_sk">
+                                        <label for="to_sk">do slovenčiny</label><br>
+                                        <input type="radio" id="from_sk" name="directions" value="from_sk">
+                                        <label for="from_sk">zo slovenčiny</label><br>
+                                        <input type="radio" id="both" name="directions" value="both" checked>
+                                        <label for="both">obidve</label>
+                                    </div>
+                                    <div id="start_test" style="background-color:magenta;">
+                                        <button onclick="StartTest()"> Začať test </button>
+                                    </div>
+                                    `;
+                                    
+                    document.getElementById("controls").innerHTML = controls;
+
+                }
+                else
+                    document.getElementById("controls").innerHTML ="";
+            }
+
+            function shuffle(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+
+                    // swap elements array[i] and array[j]
+                    // we use "destructuring assignment" syntax to achieve that
+                    // you'll find more details about that syntax in later chapters
+                    // same can be written as:
+                    // let t = array[i]; array[i] = array[j]; array[j] = t
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            function ShowWord(in_sk,in_foreign,language){
+
+                var text = '';
+
+                if (from_to == 'to_sk'){
+                    text =      `<div>
+                                    <div>prelož ${in_foreign} do slovenčiny</div>
+                                </div>`; 
+                } else{
+                    text =      `<div>
+                                    <div>prelož ${in_sk} do ${language}</div>
+                                </div>`; 
+                }
+                
+                text +=     `<div>
+                                <div>
+                                    <input type="text" id="result" name="result">
+                                </div>
+                                <div>
+                                        <button onclick="ShowResult()"> Skontroluj </button>
+                                </div>
+                             </div>`;           
+
+                return  text; 
+            }
+
+            function StartTest(){
+                shuffle(TestWords);
+                console.log(TestWords);
+
+                from_to = 'to_sk';
+                if( document.getElementById('both').checked == true)
+                {
+                    if(Math.floor(Math.random())< 0.5)
+                        from_to = 'from_sk';
+                }
+                else{
+                    if( document.getElementById('from_sk').checked == true)
+                        from_to = 'from_sk';
+                }                
+
+                WordPosition = 0;
+                var test =  ShowWord(TestWords[0][0],TestWords[0][1],TestWords[0][2],from_to);
+
+                document.getElementById("test").innerHTML =test;
+
+            }
+
+            function ShowResult(){
+                var ResultWord = "";
+
+                if(from_to == 'to_sk'){
+                    ResultWord = TestWords[WordPosition][0];
+                }
+                else{
+                    ResultWord = TestWords[WordPosition][1];
+                }
+
+                console.log(from_to);
+                console.log( `WordPosition1: ${WordPosition}`);
+                console.log(ResultWord);
+
+                if (document.getElementById("result").value == ResultWord){
+                    Score++;
+                    console.log('Correct');
+                }
+                else{
+                    console.log('wrong');
+                }
+                console.log(`Correct: ${Score} / Wrong: ${WordPosition + 1 - Score}`);
+                document.getElementById("score").innerHTML = `Correct: ${Score} / Wrong: ${WordPosition + 1 - Score}`;
+                ShowNext();
+            }
+
+            function ShowNext(){
+                console.log(TestWords.length);
+
+                var from_or_to = Math.random();
+                console.log( `from_or_to: ${from_or_to}`);
+
+                from_to = 'to_sk';
+                if( document.getElementById('both').checked == true)
+                {
+                    if(from_or_to< 0.5)
+                        from_to = 'from_sk';
+                }
+                else{
+                    if( document.getElementById('from_sk').checked == true)
+                        from_to = 'from_sk';
+                }
+
+                if(WordPosition < (TestWords.length-1)){
+                    WordPosition++;  
+                    console.log( `WordPosition2: ${WordPosition}`);
+                    document.getElementById("test").innerHTML = ShowWord(TestWords[WordPosition][0],TestWords[WordPosition][1],TestWords[WordPosition][2],from_to);
+                }   
+                else{
+                    console.log('TestEnd');
+                    document.getElementById("score").innerHTML = `
+                        <div>Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}</div>
+                        <div> Koniec testu </div>
+                        <div>
+                            <button onclick="StartAgain()"> Začať znova </button>
+                        </div>
+                        `;
+                }
+            }
+
+            function StartAgain(){
+                location.reload();
+            }
 
         </script>
-
-        <h1>This is a Heading</h1>
-        <p>This is a paragraph.</p>
-
-        <div id="language" style="background-color: mediumvioletred;">language</div>
-        <div id="lessons" style="background-color:mediumslateblue;" >lessons</div>
        
+
+    </head>
+
+    <body onload="ReadDictionary()">
+        <h1>Vyskusaj sa v slovickach</h1>
+        <p>Vyber si jazyk:</p>
+
+        <div id="language" style="background-color: mediumvioletred;"></div>
+        <div id="lessons" style="background-color:mediumslateblue;"></div>
+        <div id="controls" style="background-color:slateblue;" ></div>
+        <div id="words" style="background-color:rgb(67, 32, 102);" ></div>
+        <div id="test" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
+        <div id="score" style="background-color:turquoise"></div>
+
     </body>
 </html>

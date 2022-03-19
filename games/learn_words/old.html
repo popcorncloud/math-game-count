@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <title>Page Title</title>
+
+        <script>
+            function ReadDictionary(){
+                $.ajax({
+                    url: "https://www.nelicorn.com/games/learn_words/german_dictionary.json",
+                    dataType: "json"
+                }).done(function(result){
+                    console.log(result);
+
+                    var language="";
+                    var lessons="";
+                    var words="";
+
+                    document.getElementById("lessons").innerHTML = ""; //clear the lessons element
+
+                    var LanguageList = Object.keys(result);
+                    LanguageList.forEach((key, index) => {
+                        //check if language is selected
+                        if(document.getElementById("language").innerHTML == "")
+                        {
+                            //listing all the languages
+                            console.log("Init");
+                            language +=     `<div>
+                                                <input type="checkbox" id="language${index}" name="language${index}" value="${key}" onchange="LessonSelected(this)">
+                                                        <label for="language${index}">${key}</label><br>                                        
+                                            </div>`;
+                            //console.log(`${key}: ${result[key]}`);
+                        }
+                        else{
+                            // languages are listed, show lessons for the selected language
+                            if(document.getElementById("language"+index).checked == true){
+
+                                console.log("Checked: language"+index);                                
+                                if(document.getElementById("lessons").innerHTML == ""){
+                                    var LessonList = Object.keys(result[key]);
+                                    LessonList.forEach((lesson, LessonIndex) => {
+                                        lessons +=  `<div>
+                                                        <input type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
+                                                        <label for="${key}${LessonIndex}">${lesson}</label><br>
+                                                    </div>`;
+                                        //console.log(`${lesson}`);
+                                    });
+                                }  
+                            }  
+                            else{
+                                //now show the words for the selected languages and lessons
+                                console.log("Update");
+                                if(document.getElementById("language"+index).checked == true){
+                                    console.log("language"+index);
+                                    var LessonList = Object.keys(result[key]);
+                                    LessonList.forEach((lesson, LessonIndex) => {
+                                    //check if its checked
+                                        console.log(`${key}${LessonIndex}`);
+                                        if(document.getElementById(`${key}${LessonIndex}`).checked == true){
+                                            var WordsList = Object.keys(result[key][lesson]);
+                                            WordsList.forEach((word, WordIndex) => {
+                                                words +=  `<div>${word}</div>`;
+                                                console.log(`${word}`);
+                                            });
+                                        }
+                                    });
+
+                                }
+                            }    
+                        }                
+                    });
+
+                    if(document.getElementById("language").innerHTML == "")
+                        document.getElementById("language").innerHTML = language;
+
+                    if(document.getElementById("lessons").innerHTML == "")
+                        document.getElementById("lessons").innerHTML = lessons;
+
+                    document.getElementById("words").innerHTML = words;
+
+                });
+            }    
+
+            function LessonSelected(element){
+                ReadDictionary();
+                console.log(element.value);
+            }
+
+        </script>        
+
+    </head>
+
+    <body onload="ReadDictionary()">
+        <h1>This is a Heading</h1>
+        <p>This is a paragraph.</p>
+
+        <div id="language" style="background-color: mediumvioletred;"></div>
+        <div id="lessons" style="background-color:mediumslateblue;"></div>
+        <div id="words" style="background-color:rebeccapurple;" ></div>
+
+
+    </body>
+</html>

@@ -9,6 +9,11 @@
             "ano":"ja",
             "nie":"nein",
             "dakujem":"danke"  
+        },
+        "Lektion 3 - krajiny":{
+            "Rakúsko":"Österreich",
+            "Nemecko":"Deutschland",
+            "Slovensko":"der Slowakei"
         }
     },
     "english":{
