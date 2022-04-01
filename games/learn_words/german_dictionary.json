@@ -14,6 +14,29 @@
             "Rakúsko":"Österreich",
             "Nemecko":"Deutschland",
             "Slovensko":"der Slowakei"
+        },
+        "Lektion 4 ":{
+            "brat":"der Bruder",
+            "počítač":"der Computer",
+            "veľmi dobre":"sehr gut",
+            "nenávidieť":"hassen",
+            "divadlo":"das Theater",
+            "niekedy":"manchmal",
+            "precvičovať":"üben"
+        },
+        "Lektion 5 - predmety v škole":{ 
+            "nemčina":"Deutsch",
+            "angličtina":"Englisch",
+            "ruština":"Russisch",
+            "francúzština":"Französisch",
+            "matematika":"Mathematik",
+            "biológia":"Biologie",
+            "chémia":"Chemie",
+            "informatika":"Informatik",
+            "fyzika":"Physik",
+            "dejeis":"Geschichte"
+
+
         }
     },
     "English":{
