@@ -24,7 +24,7 @@
             "niekedy":"manchmal",
             "precvičovať":"üben"
         },
-        "Lektion 5 - predmety v škole":{ 
+        "Lektion 4 - predmety v škole":{ 
             "nemčina":"Deutsch",
             "angličtina":"Englisch",
             "ruština":"Russisch",
@@ -34,7 +34,15 @@
             "chémia":"Chemie",
             "informatika":"Informatik",
             "fyzika":"Physik",
-            "dejepis":"Geschichte"
+            "dejepis":"Geschichte",
+            "náboženstvo":"Religion",
+            "etika":"Ethik",
+            "technika":"Technik",
+            "rozvrh hodín":"Stundenplan",
+            "telesná výchova":"Sport",
+            "vyučovacia hodina":"die Stunde",
+            "výtvarná výchova":"Kunst"
+
 
 
         }
