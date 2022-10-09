@@ -31,10 +31,16 @@
                     LanguageList.forEach((key, index) => {
                         console.log(`key: ${key}`);
                         console.log(`index: ${index}`);
-                        language +=     `<div>
-                                                <input type="checkbox" id="language${index}" name="language${index}" value="${key}" onchange="LanguageSelected(this)">
-                                                <label for="language${index}">${key}</label><br>                                        
-                                        </div>`;
+                        //language +=     `<div>
+                        //                      <input type="checkbox" id="language${index}" name="language${index}" value="${key}" onchange="LanguageSelected(this)">
+                        //                      <label for="language${index}">${key}</label><br>                                        
+                        //                  </div>`;
+                        language +=     `<div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="language${index}" name="language${index}" value="${key}" onchange="LanguageSelected(this)">
+                                            <label class="form-check-label" for="language${index}">
+                                                ${key}
+                                            </label>
+                                        </div>`
                     });
                     document.getElementById("language").innerHTML = language;
                 });
@@ -56,10 +62,16 @@
                         LessonList.forEach((lesson, LessonIndex) => {
                             //console.log(`key: ${lesson}`);
                             //console.log(`index: ${LessonIndex}`);
-                            lessons +=      `<div>
-                                                <input type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
-                                                <label for="${key}${LessonIndex}">${lesson}</label><br>
-                                            </div>`;
+                            //lessons +=      `<div>
+                            //                      <input type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
+                            //                      <label for="${key}${LessonIndex}">${lesson}</label><br>
+                            //                 </div>`;
+                            lessons +=     `<div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
+                                                <label class="form-check-label" for="${key}${LessonIndex}">
+                                                    ${lesson}
+                                                </label>
+                                            </div>`                                            
                         });  
                     }                  
                 }); 
@@ -102,7 +114,7 @@
                 if(LessonChecked == true){
                     var controls = "";
 
-                    controls +=     `<div>
+                    /*controls +=     `<div>
                                         <input type="radio" id="to_sk" name="directions" value="to_sk">
                                         <label for="to_sk">do slovenčiny</label><br>
                                         <input type="radio" id="from_sk" name="directions" value="from_sk">
@@ -113,7 +125,27 @@
                                     <div id="start_test" style="background-color:magenta;">
                                         <button onclick="StartTest()"> Začať test </button>
                                     </div>
-                                    `;
+                                    `;*/
+                    controls +=     `<h3 class="text-secondary mt-4">Smer skúšania</h3>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"  id="to_sk" name="directions" value="to_sk">
+                                        <label class="form-check-label" for="to_sk">
+                                        Do slovenčiny
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="from_sk" name="directions" value="from_sk">
+                                        <label class="form-check-label" for="from_sk">
+                                        Zo slovenčiny
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="both" name="directions" value="both" checked>
+                                        <label class="form-check-label" for="both">
+                                        Obidve
+                                        </label>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="StartTest()">Začať test <i class="bi bi-play-circle"></i></button>`
                                     
                     document.getElementById("controls").innerHTML = controls;
 
@@ -277,9 +309,9 @@
         <h1>Vyskusaj sa v slovickach</h1>
         <p>Vyber si jazyk:</p>
 
-        <div id="language" style="background-color: mediumvioletred;"></div>
-        <div id="lessons" style="background-color:mediumslateblue;"></div>
-        <div id="controls" style="background-color:slateblue;" ></div>
+        <div id="language_tmp" style="background-color: mediumvioletred;">hiuhiuhiuhu</div>
+        <div id="lessons_tmp" style="background-color:mediumslateblue;"></div>
+        <div id="controls_tmp" style="background-color:slateblue;" ></div>
         <div id="words" style="background-color:rgb(67, 32, 102);" ></div>
         <div id="test" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
         <div id="score" style="background-color:turquoise"></div>
@@ -288,19 +320,8 @@
         <div class="container-fluid px-3">
             <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
             <h3 class="text-secondary mt-4">Vyber si slovník</h3>
-            <div class="container-fluid px-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                    Default checkbox
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                    <label class="form-check-label" for="flexCheckChecked">
-                    Checked checkbox
-                    </label>
-                </div>
+            <div  class="container-fluid px-3">
+                <div id="language" class="form-check"></div>
             </div>
             <h3 class="text-secondary mt-4">Vyber si lekcie</h3>
             <div class="container-fluid px-3">
@@ -308,30 +329,17 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h5 class="text-body"><i class="bi bi-book me-2"></i>English</h5>
+                            <h5 class="text-body"><i class="bi bi-book me-2"></i>Lekcie</h5>
                         </button>
                       </h2>
                       <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the first item's accordion body.</strong> It is shown by default, 
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <h5 class="text-body"><i class="bi bi-book me-2"></i>Deutsch</h5>
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                          <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
+                        <div id="lessons" class="accordion-body"></div>
                       </div>
                     </div>
                 </div>
             </div>
+            <div id="controls">
+            </div>    
         </div>
-        
     </body>
 </html>
