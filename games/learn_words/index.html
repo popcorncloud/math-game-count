@@ -170,17 +170,16 @@
             function ShowWord(in_sk,in_foreign,language){
 
                 var text = '';
-
                 if (from_to == 'to_sk'){
                     text =      `<div>
-                                    <div>prelož ${in_foreign} do slovenčiny</div>
+                                    <h3 class="text-secondary mt-4">Prelož <span class="text-dark">${in_foreign}</span> do <span class="text-dark">Slovenčiny</span></h3>
                                 </div>`; 
                 } else{
                     text =      `<div>
-                                    <div>prelož ${in_sk} do ${language}</div>
+                                    <h3 class="text-secondary mt-4">Prelož <span class="text-dark">${in_sk}</span> do <span class="text-dark">${language}</span></h3>
                                 </div>`; 
                 }
-                
+                /*
                 text +=     `<div>
                                 <div>
                                     <input type="text" id="result" name="result">
@@ -188,8 +187,21 @@
                                 <div>
                                         <button id="ShowResult" onclick="ShowResult()"> Skontroluj </button>
                                 </div>
-                             </div>`;           
-
+                             </div>`;  */         
+                text +=     `
+                            <div class="container-fluid px-3">
+                                <div id="test" class="row">
+                                    <div class="col-md-6">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="result" name="result" placeholder="Odpoveď napíš sem" aria-label="Odpoveď napíš sem" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" id="ShowResult" onclick="ShowResult()">Ďalej</button>
+                                            </div>
+                                        </div>                         
+                                    </div>
+                                </div>                         
+                            </div>                                    
+                            `
                 return  text; 
             }
 
@@ -211,6 +223,8 @@
                 WordPosition = 0;
                 var test =  ShowWord(TestWords[0][0],TestWords[0][1],TestWords[0][2],from_to);
 
+                document.getElementById("test-stopped").style.display = "none";
+                document.getElementById("test-running").style.display = "inline";
                 document.getElementById("test").innerHTML =test;
                 SetEnterEvent();
             }
@@ -306,57 +320,57 @@
     </head>
 
     <body onload="ReadDictionary()">
-        <h1>Vyskusaj sa v slovickach</h1>
-        <p>Vyber si jazyk:</p>
-
-        <div id="language_tmp" style="background-color: mediumvioletred;">hiuhiuhiuhu</div>
+        <div id="language_tmp" style="background-color: mediumvioletred;"></div>
         <div id="lessons_tmp" style="background-color:mediumslateblue;"></div>
         <div id="controls_tmp" style="background-color:slateblue;" ></div>
         <div id="words" style="background-color:rgb(67, 32, 102);" ></div>
-        <div id="test" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
+        <div id="test_tmp" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
         <div id="score" style="background-color:turquoise"></div>
         <div id="answwer" style="background-color:rgb(64, 115, 224)"></div>
 
-        <div class="container-fluid px-5">
-            <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
-            <h3 class="text-secondary mt-4">Vyber si slovník</h3>
-            <div  class="container-fluid px-3">
-                <div id="language" class="form-check"></div>
-            </div>
-            <h3 class="text-secondary mt-4">Vyber si lekcie</h3>
-            <div class="container-fluid px-3">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <h5 class="text-body"><i class="bi bi-book me-2"></i>Lekcie</h5>
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div id="lessons" class="accordion-body"></div>
-                      </div>
+        <div id="test-stopped">
+            <div class="container-fluid px-5">
+                <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
+                <h3 class="text-secondary mt-4">Vyber si slovník</h3>
+                <div  class="container-fluid px-3">
+                    <div id="language" class="form-check"></div>
+                </div>
+                <h3 class="text-secondary mt-4">Vyber si lekcie</h3>
+                <div class="container-fluid px-3">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="text-body"><i class="bi bi-book me-2"></i>Lekcie</h5>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div id="lessons" class="accordion-body"></div>
+                        </div>
+                        </div>
                     </div>
                 </div>
+                <div id="controls">
+                </div>    
             </div>
-            <div id="controls">
-            </div>    
         </div>
-        <div class="container-fluid px-5">
-            <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
-            <h3 class="text-secondary mt-4">Prelož biológia do Deutsch:</h3>
-            <div class="container-fluid px-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">Button</button>
-                            </div>
-                        </div>                         
+
+        <div id="test-running" style="display:none">
+            <div class="container-fluid px-5">
+                <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
+                <div id="test" class="container-fluid px-0"></div>
+
+                <div class="container-fluid px-3">                
+                    <div class="row">
+                        <p class="text-left"><span class="text-success">Správne!</span> biológia = biologie</p> 
                     </div>
-                   
                 </div>
 
+                <h3 class="text-secondary mt-4">Vyhodnotenie:</h3>
+                <div class="container-fluid px-3">
+                    <p class="text-left">Správne: 1 / Nesprávne: 0 / Zostáva: 9</p> 
+                </div>
+                <button type="button" class="btn btn-link" onclick="StartAgain()"><h3><i class="bi bi-arrow-left me-2"></i>Späť / Ukončiť test</h3></button>
             </div>
         </div>
     </body>
