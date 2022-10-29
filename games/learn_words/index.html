@@ -58,6 +58,18 @@
 
                     if(document.getElementById("language"+index).checked == true){
 
+                        lessons +=     `
+                                            <!--accordion item start-->
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#${key}Dictionary" aria-expanded="true" aria-controls="${key}Dictionary">
+                                                        <h5 class="text-body"><i class="bi bi-book me-2"></i>${key}</h5>
+                                                    </button>
+                                                </h2>
+                                                <div id="${key}Dictionary" class="accordion-collapse collapse show ps-3" aria-labelledby="${key}Dictionary" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">                                                
+                                        `;
+
                         var LessonList = Object.keys(AllDictionaries[key]);
                         LessonList.forEach((lesson, LessonIndex) => {
                             //console.log(`key: ${lesson}`);
@@ -73,8 +85,19 @@
                                                 </label>
                                             </div>`                                            
                         });  
+                        lessons +=     `
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- accordion-tem end-->
+                                        `;                        
                     }                  
                 }); 
+                if (lessons == "")
+                    document.getElementById("list-dictionaries").style.display = "none";
+                else
+                    document.getElementById("list-dictionaries").style.display = "block";
+
                 document.getElementById("lessons").innerHTML = lessons;
                 document.getElementById("controls").innerHTML ="";
             }
@@ -126,26 +149,36 @@
                                         <button onclick="StartTest()"> Začať test </button>
                                     </div>
                                     `;*/
-                    controls +=     `<h3 class="text-secondary mt-4">Smer skúšania</h3>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"  id="to_sk" name="directions" value="to_sk">
-                                        <label class="form-check-label" for="to_sk">
-                                        Do slovenčiny
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="from_sk" name="directions" value="from_sk">
-                                        <label class="form-check-label" for="from_sk">
-                                        Zo slovenčiny
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="both" name="directions" value="both" checked>
-                                        <label class="form-check-label" for="both">
-                                        Obidve
-                                        </label>
-                                    </div>
-                                    <button type="button" class="btn btn-primary" onclick="StartTest()">Začať test <i class="bi bi-play-circle"></i></button>`
+                    controls +=     `
+                                    <h3 class="text-secondary mt-4">Smer skúšania</h3>
+                                    <div  class="container-fluid px-3">
+                                        <div class="form-check">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio"  id="to_sk" name="directions" value="to_sk">
+                                                <label class="form-check-label" for="to_sk">
+                                                Do slovenčiny
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-check">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="from_sk" name="directions" value="from_sk">
+                                                <label class="form-check-label" for="from_sk">
+                                                Zo slovenčiny
+                                                </label>
+                                            </div>
+                                        </div>    
+                                        <div class="form-check">    
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="both" name="directions" value="both" checked>
+                                                <label class="form-check-label" for="both">
+                                                Obidve
+                                                </label>
+                                            </div>
+                                        </div>    
+                                    </div>    
+                                    <button type="button" class="btn btn-primary mt-4" onclick="StartTest()">Začať test <i class="bi bi-play-circle"></i></button>
+                                    `;
                                     
                     document.getElementById("controls").innerHTML = controls;
 
@@ -224,7 +257,7 @@
                 var test =  ShowWord(TestWords[0][0],TestWords[0][1],TestWords[0][2],from_to);
 
                 document.getElementById("test-stopped").style.display = "none";
-                document.getElementById("test-running").style.display = "inline";
+                document.getElementById("test-running").style.display = "block";
                 document.getElementById("test").innerHTML =test;
                 SetEnterEvent();
             }
@@ -247,14 +280,17 @@
                 if (document.getElementById("result").value == ResultWord){
                     Score++;
                     console.log('Correct');
-                    Answer = `Správne! Dobrá práca!`;
+                    //Answer = `Správne! Dobrá práca!`;
+                    Answer = `<p class="text-left"><span class="text-success"><i class="bi bi-check"></i>Správne!</span></p>`;
                 }
                 else{
                     console.log('wrong');
-                    Answer = `Nesprávne! Správna odpoved bola: ${ResultWord}`;
+                    //Answer = `Nesprávne! Správna odpoved bola: ${ResultWord}`;
+                    Answer = `<p class="text-left"><span class="text-danger"><i class="bi bi-x"></i>Neprávne!</span> ${TestWords[WordPosition][0]} = ${TestWords[WordPosition][1]}</p>`;
                 }
                 console.log(`Correct: ${Score} / Wrong: ${WordPosition + 1 - Score}`);
-                document.getElementById("score").innerHTML = `Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}`;
+                //document.getElementById("score").innerHTML = `Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}`;
+                document.getElementById("score").innerHTML = `<p class="text-left">Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score} / Zostáva: ${TestWords.length - WordPosition - 1}</p>`;
                 document.getElementById("answwer").innerHTML = Answer;
                 ShowNext();
             }
@@ -284,12 +320,10 @@
                 }   
                 else{
                     console.log('TestEnd');
+                    document.getElementById("test").style.display = "none";
+                    document.getElementById("answwer").style.display = "none";
                     document.getElementById("score").innerHTML = `
-                        <div>Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}</div>
-                        <div> Koniec testu </div>
-                        <div>
-                            <button onclick="StartAgain()"> Začať znova </button>
-                        </div>
+                        <p class="text-left">Koniec testu! Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}</p>
                         `;
                 }
             }
@@ -325,32 +359,23 @@
         <div id="controls_tmp" style="background-color:slateblue;" ></div>
         <div id="words" style="background-color:rgb(67, 32, 102);" ></div>
         <div id="test_tmp" style="background-color:rgb(67, 32, 102);color:palegoldenrod" ></div>
-        <div id="score" style="background-color:turquoise"></div>
-        <div id="answwer" style="background-color:rgb(64, 115, 224)"></div>
+        <div id="score_tmp" style="background-color:turquoise"></div>
+        <div id="answwer_tmp" style="background-color:rgb(64, 115, 224)"></div>
 
         <div id="test-stopped">
             <div class="container-fluid px-5">
                 <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
                 <h3 class="text-secondary mt-4">Vyber si slovník</h3>
                 <div  class="container-fluid px-3">
-                    <div id="language" class="form-check"></div>
+                    <div id="language" class="form-check"><!-- All dictionaries listed here --></div>
                 </div>
-                <h3 class="text-secondary mt-4">Vyber si lekcie</h3>
-                <div class="container-fluid px-3">
-                    <div class="accordion" id="accordionExample">
-                        <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <h5 class="text-body"><i class="bi bi-book me-2"></i>Lekcie</h5>
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div id="lessons" class="accordion-body"></div>
-                        </div>
-                        </div>
+                <div id="list-dictionaries" class="container-fluid px-0" style="display:none">
+                    <h3 class="text-secondary mt-4">Vyber si lekcie</h3>
+                    <div class="container-fluid px-0">
+                        <div class="accordion" id="lessons"><!-- Selected Dictionaries + Lessons listed here --></div>                        
                     </div>
                 </div>
-                <div id="controls">
+                <div id="controls" class="container-fluid px-0">
                 </div>    
             </div>
         </div>
@@ -358,17 +383,15 @@
         <div id="test-running" style="display:none">
             <div class="container-fluid px-5">
                 <h1 class="text-primary mt-3"><i class="bi bi-patch-question-fill me-2"></i>Vyskúšaj sa v slovíčkach</h1>
-                <div id="test" class="container-fluid px-0"></div>
+                <div id="test" class="container-fluid px-0"><!-- Preloz XXX do YYY --></div>
 
                 <div class="container-fluid px-3">                
-                    <div class="row">
-                        <p class="text-left"><span class="text-success">Správne!</span> biológia = biologie</p> 
-                    </div>
+                    <div id="answwer" class="row"><!-- Spravne / Nespravne --></div>
                 </div>
 
                 <h3 class="text-secondary mt-4">Vyhodnotenie:</h3>
-                <div class="container-fluid px-3">
-                    <p class="text-left">Správne: 1 / Nesprávne: 0 / Zostáva: 9</p> 
+                <div id="score" class="container-fluid px-3">
+                    <p class="text-left">Správne: 0 / Nesprávne: 0</p> 
                 </div>
                 <button type="button" class="btn btn-link" onclick="StartAgain()"><h3><i class="bi bi-arrow-left me-2"></i>Späť / Ukončiť test</h3></button>
             </div>
