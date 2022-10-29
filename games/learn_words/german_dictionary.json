@@ -5,14 +5,41 @@
             "macka":"katze",
             "ja":"ich"  
         },
-        "Lektion 2":{
-            "ano":"ja",
-            "nie":"nein",
-            "dakujem":"danke"  
+        "Lektion 2 - čísla do 20":{
+            "0":"null",
+            "1":"eins",
+            "2":"zwei",
+            "3":"drei",
+            "4":"vier",
+            "5":"fünf",
+            "6":"sechs",
+            "7":"sieben",
+            "8":"acht",
+            "9":"neun",
+            "10":"zehn",
+            "11":"elf",
+            "12":"zwölf",
+            "13":"dreizehn",
+            "14":"vierzehn",
+            "15":"fünfzehn",
+            "16":"sechzehn",
+            "17":"siebzehn",
+            "18":"achtzehn",
+            "19":"neunzehn",
+            "20":"zwanzig"  
         },
         "Lektion 3 - krajiny":{
             "Rakúsko":"Österreich",
             "Nemecko":"Deutschland",
+            "Brazília":"Brasilien",
+            "Poľsko":"Polen",
+            "Veľká Británia":"Großbritannien",
+            "Taliansko":"Italien",
+            "Turecko":"die Türkei",
+            "Francúzko":"Frankreich",
+            "Česko":"Tschechien",
+            "Švajčiarsko":"die Schweiz",
+            "Španielsko":"Spanien",
             "Slovensko":"die Slowakei"
         },
         "Lektion 4 ":{
@@ -24,7 +51,7 @@
             "niekedy":"manchmal",
             "precvičovať":"üben"
         },
-        "Lektion 4 - predmety v škole":{ 
+        "Lektion 5 - predmety v škole":{ 
             "nemčina":"Deutsch",
             "angličtina":"Englisch",
             "ruština":"Russisch",
