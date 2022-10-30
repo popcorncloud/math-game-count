@@ -16,6 +16,7 @@
             var from_to = 'to_sk';
             var Score = 0;
             var result_input = null;
+            var Answer = "";
 
             function ReadDictionary(){
                 $.ajax({
@@ -78,10 +79,11 @@
                             //                      <input type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
                             //                      <label for="${key}${LessonIndex}">${lesson}</label><br>
                             //                 </div>`;
+                            var WordList = Object.keys(AllDictionaries[key][lesson]);
                             lessons +=     `<div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="${key}${LessonIndex}" name="${key}${LessonIndex}" value="${lesson}" onchange="LessonSelected(this)">
                                                 <label class="form-check-label" for="${key}${LessonIndex}">
-                                                    ${lesson}
+                                                    ${lesson} (${WordList.length})
                                                 </label>
                                             </div>`                                            
                         });  
@@ -264,7 +266,7 @@
 
             function ShowResult(){
                 var ResultWord = "";
-                var Answer = "";
+                Answer = "";
 
                 if(from_to == 'to_sk'){
                     ResultWord = TestWords[WordPosition][0];
@@ -323,7 +325,7 @@
                     document.getElementById("test").style.display = "none";
                     document.getElementById("answwer").style.display = "none";
                     document.getElementById("score").innerHTML = `
-                        <p class="text-left">Odpoveď: ${TestWords[WordPosition][0]} = ${TestWords[WordPosition][1]}</p>
+                        ${Answer}
                         <p class="text-left">Koniec testu! Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}</p>
                         `;
                 }
@@ -395,7 +397,7 @@
                 <div id="score" class="container-fluid px-3">
                     <p class="text-left">Správne: 0 / Nesprávne: 0</p> 
                 </div>
-                <button type="button" class="btn btn-link" onclick="StartAgain()"><h3><i class="bi bi-arrow-left me-2"></i>Späť / Ukončiť test</h3></button>
+                <button type="button" class="btn btn-link" onclick="StartAgain()"><h4><i class="bi bi-arrow-left me-2"></i>Späť / Ukončiť test</h4></button>
             </div>
         </div>
     </body>
