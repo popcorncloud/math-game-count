@@ -323,9 +323,11 @@
                     document.getElementById("test").style.display = "none";
                     document.getElementById("answwer").style.display = "none";
                     document.getElementById("score").innerHTML = `
+                        <p class="text-left">Odpoveď: ${TestWords[WordPosition][0]} = ${TestWords[WordPosition][1]}</p>
                         <p class="text-left">Koniec testu! Správne: ${Score} / Nesprávne: ${WordPosition + 1 - Score}</p>
                         `;
                 }
+                document.getElementById("result").focus();
             }
 
             function StartAgain(){

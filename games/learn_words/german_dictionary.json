@@ -1,11 +1,11 @@
 {
     "Deutsch":{
-        "Lektion 1":{
+        "Pozdravy":{
             "ahoj":"hallo",
             "macka":"katze",
             "ja":"ich"  
         },
-        "Lektion 2 - čísla do 20":{
+        "Čísla do 20":{
             "0":"null",
             "1":"eins",
             "2":"zwei",
@@ -28,7 +28,7 @@
             "19":"neunzehn",
             "20":"zwanzig"  
         },
-        "Lektion 3 - krajiny":{
+        "Krajiny":{
             "Rakúsko":"Österreich",
             "Nemecko":"Deutschland",
             "Brazília":"Brasilien",
@@ -42,16 +42,23 @@
             "Španielsko":"Spanien",
             "Slovensko":"die Slowakei"
         },
-        "Lektion 4 ":{
-            "brat":"der Bruder",
-            "počítač":"der Computer",
-            "veľmi dobre":"sehr gut",
-            "nenávidieť":"hassen",
-            "divadlo":"das Theater",
-            "niekedy":"manchmal",
-            "precvičovať":"üben"
+        "Časovanie pravidelných slovies":{
+            "ich":"-e",
+            "du":"-st",
+            "er,sie,es":"-t",
+            "wir":"-en",
+            "ihr":"-t",
+            "sie,Sie":"-en"
         },
-        "Lektion 5 - predmety v škole":{ 
+        "Časovanie slovesa byť":{
+            "ich":"bin",
+            "du":"bist",
+            "er,sie,es":"ist",
+            "wir":"sind",
+            "ihr":"seid",
+            "sie,Sie":"sind"
+        },
+        "Predmety v škole":{ 
             "nemčina":"Deutsch",
             "angličtina":"Englisch",
             "ruština":"Russisch",
