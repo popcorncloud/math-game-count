@@ -76,9 +76,25 @@
             "telesná výchova":"Sport",
             "vyučovacia hodina":"die Stunde",
             "výtvarná výchova":"Kunst"
-
-
-
+        },
+        "Slová, členy aj plurál":{
+            "školský predmet":"das Schulfach, fächer",
+            "rozvrh hodín":"der Stundenplan, pläne",
+            "fotka":"das Foto,-s",
+            "učiteľ":"der Lehrer,-",
+            "učiteľka":"die Lehrerin,-nen",
+            "žiak":"der Schüler,-",
+            "žiačka":"die Schülerin,-nen",
+            "tabuľa":"die Tafel,-n",
+            "úloha":"die Aufgabe,-n",
+            "trieda":"die Klasse,-n",
+            "peračník":"das Mäppchen,-",
+            "stolička":"der Stuhl, stühle",
+            "pero":"der Kuli,-s",
+            "prestávka":"die Pause,-n",
+            "počítač":"der Computer,-",
+            "DVD":"die DVD,-s",
+            "riešenie":"die Lösung,-en"
         }
     },
     "English":{
